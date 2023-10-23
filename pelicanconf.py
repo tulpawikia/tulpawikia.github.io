@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 
-AUTHOR = 'Anonymous'
+AUTHOR = 'Solinnen'
 SITENAME = 'TulpaWikia'
 SITEURL = 'https://tulpawikia.github.io'
 
