@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} | {{ SITENAME }}{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<meta name="twitter:title" content="{{ article.title }} | {{ SITENAME }}">
+	<meta property="og:title" content="{{ article.title }} | {{ SITENAME }}">
+	{% if article.description %}
+	<meta name="description" content="{{ article.description }}">
+	<meta property="og:description" content="{{ article.description }}">
+	<meta name="description" content="{{ article.description }}"/>
+	{% else %}
+	{% if article.summary %}
+	<meta name="description" content="{{ article.content|striptags|truncate(250) }}">
+	<meta property="og:description" content="{{ article.content|striptags|truncate(250) }}">
+	<meta name="description" content="{{ article.content|striptags|truncate(250) }}"/>
+	{% else %}
+	<meta name="description" content="Рациональность, открытость, обмен опытом и научный подход.">
+	<meta name="description" content="Рациональность, открытость, обмен опытом и научный подход.">
+	<meta property="og:description" content="Рациональность, открытость, обмен опытом и научный подход.">
+	{% endif %}
+	{% endif %}
+
+	<script type="application/ld+json">
+	  {
+	    "@context": "https://schema.org",
+	    "@type": "Article",
+	    "headline": "{{ article.title }}",
+	    "datePublished": "{{ article.date }}T08:00:00+08:00",
+	    "author": {
+	      "@type": "Person",
+	      "name": "{{ article.author }}",
+	      "url": "{{ article.source }}"
+	    }
+	  }
+	</script>
+{% endblock %}
+
+{% block content %}
+{% if not article.site %}
+<div class="page article">
+{% else %}
+<div class="page site">
+{% endif %}
+	{% if not article.short %}
+		<div class="meta">
+			<p class="list">
+				<a class="item" href="{{ SITEURL }}/categories#{{ article.category }}">{{ article.category }}</a>
+				{% if not article.stage or article.stage == '0' %}
+					<a class="item stage-0" title="Ценность, полезность и научность этого материала еще не оценены редакцией.">Проверяется</a>
+				{% else %}
+					{% if article.stage == '1' %}
+						<a class="item stage-1">В проработке</a>
+					{% else %}
+						{% if article.stage == '2' %}
+						
+						{% else %}
+							{% if article.stage == '3' %}
+								<a class="item stage-3" title="Этот материал одобрен редакцией.">Одобрен</a>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+				{% endif %}
+				{% if article.badtranslation %}
+					<a class="item stage-0" title="Гайд переведён ужасно, с неточностями и искажением смысла.">Ужасный перевод</a>
+				{% endif %}
+			</p>
+			{% if article.source %}
+				<p class="label">
+					{% if article.author == "Anonymous" %}
+						<a class="source" href="{{ article.source }}">Первоисточник</a>
+					{% else %}
+						<a class="source" href="{{ article.source }}">{{ article.author }}</a>
+					{% endif %}
+					{% if article.date.year > 10 %}
+						<i class="splitter">&#47;</i>
+						{% if article.date.month == 1 and article.date.day == 1 %}
+							{{ article.date|strftime('%Y') }}
+						{% else %}
+							{{ article.date|strftime('%d %B %Y') }}
+						{% endif %}
+					{% endif %}
+				</p>
+			{% else %}
+				<p class="label">
+					<i class="source">{{ article.author }}</i>
+					{% if article.date.year > 10 %}
+						<i class="splitter">&#47;</i>
+						{% if article.date.month == 1 and article.date.day == 1 %}
+							{{ article.date|strftime('%Y') }}
+						{% else %}
+							{{ article.date|strftime('%d %B %Y') }}
+						{% endif %}
+					{% endif %}
+				</p>
+			{% endif %}
+		</div>
+	{% endif %}
+	<h1 class="title"><a href="{{ SITEURL }}/{{ article.url }}" title="Ссылка на {{ article.title|striptags }}">{{ article.title }}</a></h1>
+
+	{% if article.content.rfind('<div class="footnote">') == -1 %}
+		{{ article.content }}
+	{% else %}
+		{{ article.content.replace('<div class="footnote">', '<div class="footnote"><h2>Примечания</h2>') }}
+	{% endif %}
+
+	{% if article.prev_article or article.next_article %}
+		<hr>
+		<div class="footer-buttons">
+			{% if article.prev_article %}
+				<a href="{{ SITEURL }}/{{ article.prev_article.url}}" class="btn left" title="{{ article.prev_article.title }}"><i class="f-icon">&#xe811;</i><p>{{ article.prev_article.title }}</p></a>
+			{% else %}
+				<p></p>
+			{% endif %}
+			<p></p>
+			{% if article.next_article %}
+				<a href="{{ SITEURL }}/{{ article.next_article.url}}" class="btn right" title="{{ article.next_article.title }}"><p>{{ article.next_article.title }}</p><i class="f-icon">&#xe810;</i></a>
+			{% else %}
+				<p></p>
+			{% endif %}
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

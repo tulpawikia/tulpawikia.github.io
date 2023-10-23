@@ -1,0 +1,52 @@
+name: pelican
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - blas=1.0=mkl
+  - ca-certificates=2021.1.19=h06a4308_0
+  - certifi=2020.12.5=py38h06a4308_0
+  - intel-openmp=2020.2=254
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libedit=3.1.20191231=h14c3975_1
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - mkl=2020.2=256
+  - mkl-service=2.3.0=py38he904b0f_0
+  - mkl_fft=1.2.1=py38h54f3939_0
+  - mkl_random=1.1.1=py38h0573a6f_0
+  - ncurses=6.2=he6710b0_1
+  - openssl=1.1.1j=h27cfd23_0
+  - pip=21.0.1=py38h06a4308_0
+  - python=3.8.5=h7579374_1
+  - readline=8.1=h27cfd23_0
+  - setuptools=52.0.0=py38h06a4308_0
+  - six=1.15.0=py38h06a4308_0
+  - sqlite=3.33.0=h62c20be_0
+  - tk=8.6.10=hbc83047_0
+  - wheel=0.36.2=pyhd3eb1b0_0
+  - xz=5.2.5=h7b6447c_0
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+      - beautifulsoup4==4.9.3
+      - blinker==1.4
+      - bs4==0.0.1
+      - css-html-js-minify==2.5.5
+      - docutils==0.16
+      - feedgenerator==1.9.1
+      - jinja2==2.11.3
+      - markdown==3.2.2
+      - markupsafe==2.0.1
+      - mathjax==0.1.2
+      - numpy==1.20.1
+      - pelican==4.5.4
+      - pillow==8.1.0
+      - pygments==2.6.1
+      - pyparsing==2.4.7
+      - python-dateutil==2.8.2
+      - pytz==2020.5
+      - soupsieve==2.2
+      - unidecode==1.2.0
+prefix: /home/whoami/.miniconda3/envs/pelican

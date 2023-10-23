@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Категории | {{ SITENAME }}{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<meta name="twitter:title" content="Категории | {{ SITENAME }}">
+	<meta property="og:title" content="Категории | {{ SITENAME }}">
+	<meta name="description" content="Рациональность, открытость, обмен опытом и научный подход.">
+	<meta property="og:description" content="Рациональность, открытость, обмен опытом и научный подход.">
+{% endblock %}
+
+{% block content %}
+<div class="page categories">
+	<h1 class="title">Категории</h1>
+
+	{% for category, articles in categories|sort(attribute='title') %}
+		{% if category != "Hidden" %}
+			<table class="compact">
+				{% if articles %}
+					<thead id="{{ category }}"><tr><th><a href="#{{ category }}">{{ category }}</a></th></tr></thead>
+					<tbody>
+						{% for article in articles|sort(attribute='title') %}
+							<tr><td><a href="{{ SITEURL }}/{{ article.url|replace('.html','') }}">{{ article.title }}</a></td></tr>
+						{% endfor %}
+					</tbody>
+				{% endif %}
+			</table>
+		{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}
